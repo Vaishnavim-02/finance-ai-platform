@@ -1,6 +1,7 @@
 import expenses
+from expenses import load_expenses
 
-expense_list = []
+expense_list = load_expenses()
 
 while True:
 
@@ -24,6 +25,7 @@ while True:
     elif(choice=="2"):
         expenses.view_expense(expense_list)
     elif(choice=="3"):
-        print("Exit")
+        print(" Exiting AI PERSONAL FINANCE PLATFORM ")
+        break
     else:
         print("Invalid Choice")

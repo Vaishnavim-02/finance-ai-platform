@@ -1,3 +1,5 @@
+import json
+
 def add_expense(expense_list):
     print(" ADD EXPENSE ")
     continue_adding = True
@@ -11,6 +13,7 @@ def add_expense(expense_list):
                         "amount":amount,
                         }
         expense_list.append(expense)
+        save_expenses(expense_list)
         x = input("Do you want to add another expense ?")
         if( x == "no"):
                         continue_adding = False
@@ -37,3 +40,17 @@ def view_expense(expense_list):
 
     else:
         print("No expenses found.")
+        
+def save_expenses(expense_list):
+    
+    file = open("data/expenses.json", "w")
+    json.dump(expense_list, file)
+    file.close()
+    
+def load_expenses():
+    try:
+        with open("data/expenses.json", "r") as file :
+            expense_list = json.load(file)
+            return expense_list
+    except (json.decoder.JSONDecodeError , FileNotFoundError) :
+        return[]
