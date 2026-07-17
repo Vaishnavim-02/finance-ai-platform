@@ -54,3 +54,32 @@ def load_expenses():
             return expense_list
     except (json.decoder.JSONDecodeError , FileNotFoundError) :
         return[]
+    
+def display_numbered_expenses(expense_list):
+    if  not expense_list:
+        print("No expenses available.")
+        return
+    for index , expense in enumerate(expense_list):
+        print(f"{index + 1}. {expense['expense']} : ₹{expense['amount']}")
+        
+def delete_expense(expense_list):
+    if not expense_list:
+        print("No expenses available.")
+        return
+
+    display_numbered_expenses(expense_list)
+    while True:
+        try:
+            selected_expense = int(input("Select expense number to delete:  "))
+            if selected_expense < 1 or selected_expense > len(expense_list):
+                print(f"Please enter a number between 1 and {len(expense_list)}.")
+                continue
+            selected_index = selected_expense - 1
+            expense_list.pop(selected_index)
+            save_expenses(expense_list)
+            print("Expense deleted successfully.")
+            break
+        except ValueError:
+            print("Invalid input. Please enter a valid number.")
+            continue
+    
