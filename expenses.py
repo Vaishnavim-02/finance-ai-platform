@@ -83,3 +83,67 @@ def delete_expense(expense_list):
             print("Invalid input. Please enter a valid number.")
             continue
     
+def edit_category(expense):
+    while True:
+        new_expense = input("Enter new expense :  ")
+        new_expense = new_expense.strip()
+        if not new_expense:
+            print("Expense name cannot be empty. \n Please try again ")
+            continue
+        
+        expense["expense"] = new_expense
+        break
+
+
+def edit_amount(expense):
+    while True:
+        try:
+            new_amount = float(input("Enter new amount : "))
+            if(new_amount > 0 ):
+                expense["amount"] = new_amount
+                break
+            else:
+                print(" Please enter a valid amount.")
+        except ValueError:
+            print(" Invalid Amount. \n Please try again")
+            continue
+            
+def edit_expense(expense_list):
+    if not expense_list:
+            print("No expenses available.")
+            return
+    display_numbered_expenses(expense_list)
+    while True:
+                try:
+                    expense_number = int(input("Select expense number to edit:  "))
+                    if  expense_number < 1 or expense_number > len(expense_list):
+                        print(f"Please enter a number between 1 and {len(expense_list)}.")
+                        continue
+                    selected_index = expense_number - 1
+                    selected_expense = expense_list[selected_index]
+                    break
+                except ValueError:
+                    print("Invalid input. Please enter a valid number.")
+                    continue
+    while True:
+        edit_choice =input("Enter your choice you would like to edit ( 1-3) ?")
+                
+        if edit_choice== "1":
+            edit_category(selected_expense)
+            break
+        
+        elif edit_choice== "2":
+            edit_amount(selected_expense)
+            break
+        
+        elif edit_choice== "3":
+            edit_category(selected_expense)
+            edit_amount(selected_expense)
+            break
+        
+        else:
+            print("Invalid choice ")
+            continue
+    save_expenses(expense_list)
+    print("Expense updated successfully !")
+        
