@@ -18,9 +18,15 @@ while True:
     print(" 3. DELETE EXPENSE ")
     print("=" * 35)
     print("=" * 35)
-    print(" 4. EXIT ")
+    print(" 4. EDIT EXPENSE ")
     print("=" * 35)
-    
+    print("=" * 35)
+    print(" 5. SEARCH EXPENSE ")
+    print("=" * 35)
+    print("=" * 35)
+    print(" 6. EXIT ")
+    print("=" * 35)
+        
     choice=input("Enter your choice :")
     print(choice)
     if(choice=="1"):
@@ -32,7 +38,7 @@ while True:
     elif(choice=="4"):
         expenses.edit_expense(expense_list)
     elif(choice=="5"):
-        print("search expense by category")
+        expenses.search_expense(expense_list)
     elif(choice=="6"):
         print(" Exiting AI PERSONAL FINANCE PLATFORM ")
         break

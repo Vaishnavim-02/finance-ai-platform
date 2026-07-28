@@ -168,3 +168,22 @@ def calculate_total(expense_list):
     for expense in expense_list:
         total = total + expense["amount"]
     return total
+
+def search_expense(expense_list):
+    if not expense_list :
+        print("No expenses available")
+        return
+    search = input("Enter the expense you want to search ?").strip().lower()
+    
+    matching_expenses = []
+    for expense in expense_list:
+        expense_name = expense["expense"].strip().lower()
+
+        if search in expense_name:
+            matching_expenses.append(expense)
+        
+    if not matching_expenses:
+        print("No matching expense found.")
+        return
+    
+    view_expense(matching_expenses)
