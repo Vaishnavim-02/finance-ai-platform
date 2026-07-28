@@ -30,6 +30,10 @@ while True:
     elif(choice=="3"):
         expenses.delete_expense(expense_list)
     elif(choice=="4"):
+        expenses.edit_expense(expense_list)
+    elif(choice=="5"):
+        print("search expense by category")
+    elif(choice=="6"):
         print(" Exiting AI PERSONAL FINANCE PLATFORM ")
         break
     else:

@@ -25,22 +25,14 @@ def add_expense(expense_list):
     print("Total : ", total)
     
 def view_expense(expense_list):
+    if not expense_list:
+        print("No expenses available.")
+        return
+    print("VIEW EXPENSE")
+    display_expenses(expense_list)
+    total = calculate_total(expense_list)
+    print("Total:", total)
 
-    if expense_list != []:
-        print("VIEW EXPENSE")
-
-        total = 0
-
-        for expense in expense_list:
-            total = total + expense["amount"]
-            print(expense["expense"])
-            print(expense["amount"])
-
-        print("Total :", total)
-
-    else:
-        print("No expenses found.")
-        
 def save_expenses(expense_list):
     
     file = open("data/expenses.json", "w")
@@ -147,3 +139,32 @@ def edit_expense(expense_list):
     save_expenses(expense_list)
     print("Expense updated successfully !")
         
+def search_expense(expense_list):
+    if not expense_list:
+                print("No expenses match available.")
+                return
+    search = input("enter the expense you want to search ?")
+    print(search)
+    
+    if search == True:
+        total = 0
+        total = total + expense["amount"]
+        print("Total :", total)
+        print("Search Found")
+    else:
+        print("No Match Found")
+        
+def display_expenses(expense_list):
+    if not expense_list:
+        print("No expenses available.")
+        return
+            
+    for expense in expense_list:
+            print(expense["expense"])
+            print(expense["amount"])
+    
+def calculate_total(expense_list):
+    total = 0
+    for expense in expense_list:
+        total = total + expense["amount"]
+    return total
