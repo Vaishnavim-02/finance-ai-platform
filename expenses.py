@@ -187,3 +187,23 @@ def search_expense(expense_list):
         return
     
     view_expense(matching_expenses)
+def category_summary(expense_list):
+    if not expense_list:
+        print("No expenses available.")
+        return
+    print("CATEGORY SUMMARY")
+    print("-" * 20)
+    
+    category_summary = {}
+    for expense in expense_list:
+        category = expense["expense"]
+        amount = expense["amount"]
+        
+        if category in category_summary:
+            category_summary[category] = category_summary[category] + amount
+        else:
+            category_summary[category] = amount
+            
+    for category, total in category_summary.items():
+                print(category,":",total)
+        

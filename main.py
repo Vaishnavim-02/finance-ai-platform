@@ -24,7 +24,10 @@ while True:
     print(" 5. SEARCH EXPENSE ")
     print("=" * 35)
     print("=" * 35)
-    print(" 6. EXIT ")
+    print(" 6. CATEGORY SUMMARY ")
+    print("=" * 35)
+    print("=" * 35)
+    print(" 7. EXIT ")
     print("=" * 35)
         
     choice=input("Enter your choice :")
@@ -40,6 +43,8 @@ while True:
     elif(choice=="5"):
         expenses.search_expense(expense_list)
     elif(choice=="6"):
+        expenses.category_summary(expense_list)
+    elif(choice=="7"):
         print(" Exiting AI PERSONAL FINANCE PLATFORM ")
         break
     else:
