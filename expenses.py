@@ -206,4 +206,25 @@ def category_summary(expense_list):
             
     for category, total in category_summary.items():
                 print(category,":",total)
+            
+def highest_expense(expense_list):
+    if not expense_list:
+        print("No Expenses Available")
+        return
+    
+    highest_expense = expense_list[0]
+    
+    for expense in expense_list[1:]:
+        if expense["amount"] > highest_expense["amount"]:
+            highest_expense = expense
+        
+    print("=" * 35)
+    print("      Highest Expense")
+    print("=" * 35)
+    print(f"Expense  : {highest_expense['expense']}")
+    print(f"Category : {highest_expense['category']}")
+    print(f"Amount   : ₹{highest_expense['amount']}")
+    print("=" * 35)
+            
+    
         

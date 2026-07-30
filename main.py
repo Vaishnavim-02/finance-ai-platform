@@ -27,7 +27,10 @@ while True:
     print(" 6. CATEGORY SUMMARY ")
     print("=" * 35)
     print("=" * 35)
-    print(" 7. EXIT ")
+    print(" 7. HIGHEST EXPENSE")
+    print("=" * 35)
+    print("=" * 35)
+    print(" 8. EXIT ")
     print("=" * 35)
         
     choice=input("Enter your choice :")
@@ -45,6 +48,8 @@ while True:
     elif(choice=="6"):
         expenses.category_summary(expense_list)
     elif(choice=="7"):
+        expenses.highest_expense(expense_list)
+    elif(choice=="8"):
         print(" Exiting AI PERSONAL FINANCE PLATFORM ")
         break
     else:
