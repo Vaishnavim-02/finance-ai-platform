@@ -225,6 +225,22 @@ def highest_expense(expense_list):
     print(f"Category : {highest_expense['category']}")
     print(f"Amount   : ₹{highest_expense['amount']}")
     print("=" * 35)
-            
     
+def lowest_expense(expense_list):
+    if not expense_list:
+        print("No Expenses Available")
+        return
+    
+    lowest_expense= expense_list[0]
+    
+    for expense in expense_list[1:]:
+        if expense["amount"] < lowest_expense["amount"]:
+            lowest_expense = expense
         
+    print("=" * 35)
+    print("      Lowest Expense")
+    print("=" * 35)
+    print(f"Expense  : {lowest_expense['expense']}")
+    print(f"Category : {lowest_expense['category']}")
+    print(f"Amount   : ₹{lowest_expense['amount']}")
+    print("=" * 35)

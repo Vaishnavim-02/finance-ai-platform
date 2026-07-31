@@ -30,7 +30,10 @@ while True:
     print(" 7. HIGHEST EXPENSE")
     print("=" * 35)
     print("=" * 35)
-    print(" 8. EXIT ")
+    print(" 8. LOWEST EXPENSE")
+    print("=" * 35)
+    print("=" * 35)
+    print(" 9. EXIT ")
     print("=" * 35)
         
     choice=input("Enter your choice :")
@@ -50,7 +53,9 @@ while True:
     elif(choice=="7"):
         expenses.highest_expense(expense_list)
     elif(choice=="8"):
-        print(" Exiting AI PERSONAL FINANCE PLATFORM ")
-        break
+        expenses.lowest_expense(expense_list)
+    elif(choice=="9"):
+            print(" Exiting AI PERSONAL FINANCE PLATFORM ")
+            break
     else:
         print("Invalid Choice")
