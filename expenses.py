@@ -244,3 +244,20 @@ def lowest_expense(expense_list):
     print(f"Category : {lowest_expense['category']}")
     print(f"Amount   : ₹{lowest_expense['amount']}")
     print("=" * 35)
+    
+def average_expense(expense_list):
+    if not expense_list:
+        print("No expense Available")
+        return
+    total = 0
+    Number_of_expenses = len(expense_list)
+    for expense in expense_list:
+        total += expense["amount"]
+    average = total / Number_of_expenses
+    print("=" * 35)
+    print("      Average Expense")
+    print("=" * 35)
+    print(f"Average : ₹{average:.2f}")
+    print("=" * 35)
+    
+    
