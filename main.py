@@ -39,7 +39,10 @@ while True:
     print("10. TOTAL EXPENSES")
     print("=" * 35)
     print("=" * 35)
-    print("11. EXIT")
+    print("11. EXPENSE PERCENTAGE")
+    print("=" * 35)
+    print("=" * 35)
+    print("12. EXIT")
     print("=" * 35)
         
     choice=input("Enter your choice :")
@@ -65,7 +68,9 @@ while True:
     elif(choice=="10"):
         expenses.total_number_of_expenses(expense_list)
     elif(choice=="11"):
-        print(" Exiting AI PERSONAL FINANCE PLATFORM ")
-        break
+        expenses.expense_percentage(expense_list)
+    elif(choice=="12"):
+            print(" Exiting AI PERSONAL FINANCE PLATFORM ")
+            break
     else:
         print("Invalid Choice")

@@ -1,17 +1,1 @@
-[
-    {
-        "expense": "Laptop",
-        "category": "Electronics",
-        "amount": 65000
-    },
-    {
-        "expense": "Mouse",
-        "category": "Electronics",
-        "amount": 1200
-    },
-    {
-        "expense": "Keyboard",
-        "category": "Electronics",
-        "amount": 2500
-    }
-]
+[{"expense": "phone", "category": "Electronics", "amount": 65000}, {"expense": "Keyboard", "category": "Electronics", "amount": 2500}]

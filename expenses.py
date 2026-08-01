@@ -267,3 +267,29 @@ def total_number_of_expenses(expense_list):
     print("=" * 35)
     print(f"Total Expenses : {number_of_expenses}")
     print("=" * 35)
+    
+def expense_percentage(expense_list):
+    if not expense_list:
+        print("No Expense Available")
+        return
+    
+    category_totals = {}
+    total = 0
+    for expense in expense_list:
+        total += expense["amount"]
+        category = expense["category"]
+        amount = expense["amount"]
+        if category in category_totals:
+            category_totals[category] += amount
+        else:
+            category_totals[category] = amount
+        
+    print("=" * 35)
+    print("      Expense Percentage ")
+    print("=" * 35)
+    
+    for category, category_total in category_totals.items():
+        percentage = (category_total / total) * 100
+        print(f"{category:<15} : {percentage:.2f}%")
+    print("=" * 35)
+    
