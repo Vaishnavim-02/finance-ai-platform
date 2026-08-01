@@ -260,4 +260,10 @@ def average_expense(expense_list):
     print(f"Average : ₹{average:.2f}")
     print("=" * 35)
     
-    
+def total_number_of_expenses(expense_list):
+    number_of_expenses = len(expense_list)
+    print("=" * 35)
+    print("      Total Number of Expense")
+    print("=" * 35)
+    print(f"Total Expenses : {number_of_expenses}")
+    print("=" * 35)
