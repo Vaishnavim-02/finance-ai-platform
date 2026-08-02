@@ -293,3 +293,57 @@ def expense_percentage(expense_list):
         print(f"{category:<15} : {percentage:.2f}%")
     print("=" * 35)
     
+def sort_expenses(expense_list):
+    if not expense_list:
+        print("No Expense Available")
+        return
+    while True:
+        print("=" * 35)
+        print("SORT EXPENSE")
+        print("=" * 35)
+        print("1. Amount (Ascending)")
+        print("2. Amount (Descending)")
+        print("3. Expense Name (A-Z)")
+        print("4. Expense Name (Z-A)")
+        print("5. Category")
+        print("6. Exit")
+    
+        try :
+            choice = int(input("Enter your choice (1-6): "))
+        except ValueError:
+                    print("Invalid input. Please enter a valid number.")
+                    continue
+                
+        if choice == 1:
+                    sorted_expenses =sorted (
+                        expense_list,
+                        key = lambda expense:expense["amount"]
+                    )
+        elif choice == 2:
+                sorted_expenses =sorted (
+                    expense_list,
+                    key = lambda expense:expense["amount"],
+                    reverse = True
+                        )
+        elif choice == 3:
+                sorted_expenses = sorted(
+                    expense_list,
+                    key=lambda expense:expense["expense"]
+                    )
+        elif choice == 4:
+                sorted_expenses = sorted(
+                    expense_list,
+                    key=lambda expense:expense["expense"],
+                    reverse = True
+                        )
+        elif choice == 5:
+                sorted_expenses = sorted(
+                    expense_list,
+                    key=lambda expense:expense["category"]
+                                    )
+        else:
+                print("Invalid Choice")
+                continue
+            
+        view_expense(sorted_expenses)
+        break
