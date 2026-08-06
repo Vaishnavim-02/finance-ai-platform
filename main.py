@@ -45,7 +45,10 @@ while True:
     print("12. SORT EXPENSES")
     print("=" * 35)
     print("=" * 35)
-    print("13. EXIT")
+    print("13. FILTER EXPENSE")
+    print("=" * 35)
+    print("=" * 35)
+    print("14. EXIT")
     print("=" * 35)
         
     choice=input("Enter your choice :")
@@ -73,9 +76,11 @@ while True:
     elif(choice=="11"):
         expenses.expense_percentage(expense_list)
     elif(choice=="12"):
-            expenses.sort_expenses(expense_list)
+        expenses.sort_expenses(expense_list)
     elif(choice=="13"):
-            print(" Exiting AI PERSONAL FINANCE PLATFORM ")
-            break
+        expenses.filter_expenses(expense_list)
+    elif(choice=="14"):
+        print(" Exiting AI PERSONAL FINANCE PLATFORM ")
+        break
     else:
         print("Invalid Choice")
