@@ -19,9 +19,6 @@ def add_expense(expense_list):
         x = input("Do you want to add another expense ?")
         if( x == "no"):
                         continue_adding = False
-    total = 0
-    for expense in expense_list:
-                total = total + expense["amount"]
     view_expense(expense_list)
     
 def view_expense(expense_list):
@@ -34,11 +31,9 @@ def view_expense(expense_list):
     print("Total:", total)
 
 def save_expenses(expense_list):
-    
-    file = open("data/expenses.json", "w")
-    json.dump(expense_list, file)
-    file.close()
-    
+    with open("data/expenses.json", "w") as file:
+        json.dump(expense_list, file)
+
 def load_expenses():
     try:
         with open("data/expenses.json", "r") as file :
@@ -48,117 +43,92 @@ def load_expenses():
         return[]
     
 def display_numbered_expenses(expense_list):
-    if  not expense_list:
-        print("No expenses available.")
-        return
     for index , expense in enumerate(expense_list):
         print(f"{index + 1}. {expense['expense']} : ₹{expense['amount']}")
-        
+    
+def select_expense(expense_list):
+    display_numbered_expenses(expense_list)
+    try:
+        expense_number = int(input("Enter expense number: "))
+    except ValueError:
+        print("Please enter a valid number.")
+        return None
+    if expense_number < 1 or expense_number > len(expense_list):
+        print("Invalid expense number.")
+        return None
+    return expense_number - 1
+
 def delete_expense(expense_list):
     if not expense_list:
         print("No expenses available.")
         return
+    index = select_expense(expense_list)
+    if index is None:
+        return
+    deleted_expense = expense_list.pop(index)
+    save_expenses(expense_list)
+    print(f"'{deleted_expense['expense']}' deleted successfully.")
 
-    display_numbered_expenses(expense_list)
+def edit_expense_name(expense):
     while True:
-        try:
-            selected_expense = int(input("Select expense number to delete:  "))
-            if selected_expense < 1 or selected_expense > len(expense_list):
-                print(f"Please enter a number between 1 and {len(expense_list)}.")
-                continue
-            selected_index = selected_expense - 1
-            expense_list.pop(selected_index)
-            save_expenses(expense_list)
-            print("Expense deleted successfully.")
-            break
-        except ValueError:
-            print("Invalid input. Please enter a valid number.")
-            continue
-    
-def edit_category(expense):
-    while True:
-        new_expense = input("Enter new expense :  ")
-        new_expense = new_expense.strip()
+        new_expense = input("Enter new expense name: ").strip().title()
         if not new_expense:
-            print("Expense name cannot be empty. \n Please try again ")
+            print("Expense name cannot be empty.")
             continue
-        
         expense["expense"] = new_expense
         break
-
 
 def edit_amount(expense):
     while True:
         try:
-            new_amount = float(input("Enter new amount : "))
-            if(new_amount > 0 ):
-                expense["amount"] = new_amount
-                break
-            else:
-                print(" Please enter a valid amount.")
+            new_amount = float(input("Enter new amount: "))
+            if new_amount < 0:
+                print("Amount cannot be negative.")
+                continue
+            expense["amount"] = new_amount
+            break
         except ValueError:
-            print(" Invalid Amount. \n Please try again")
-            continue
+            print("Invalid input. Please enter a valid amount.")
             
 def edit_expense(expense_list):
     if not expense_list:
-            print("No expenses available.")
-            return
-    display_numbered_expenses(expense_list)
-    while True:
-                try:
-                    expense_number = int(input("Select expense number to edit:  "))
-                    if  expense_number < 1 or expense_number > len(expense_list):
-                        print(f"Please enter a number between 1 and {len(expense_list)}.")
-                        continue
-                    selected_index = expense_number - 1
-                    selected_expense = expense_list[selected_index]
-                    break
-                except ValueError:
-                    print("Invalid input. Please enter a valid number.")
-                    continue
-    while True:
-        edit_choice =input("Enter your choice you would like to edit ( 1-3) ?")
-                
-        if edit_choice== "1":
-            edit_category(selected_expense)
-            break
-        
-        elif edit_choice== "2":
-            edit_amount(selected_expense)
-            break
-        
-        elif edit_choice== "3":
-            edit_category(selected_expense)
-            edit_amount(selected_expense)
-            break
-        
-        else:
-            print("Invalid choice ")
-            continue
-    save_expenses(expense_list)
-    print("Expense updated successfully !")
-        
-def search_expense(expense_list):
-    if not expense_list:
-                print("No expenses match available.")
-                return
-    search = input("enter the expense you want to search ?")
-    print(search)
-    
-    if search == True:
-        total = 0
-        total = total + expense["amount"]
-        print("Total :", total)
-        print("Search Found")
-    else:
-        print("No Match Found")
-        
-def display_expenses(expense_list):
-    if not expense_list:
         print("No expenses available.")
         return
-            
+    index = select_expense(expense_list)
+    if index is None:
+        return
+    expense = expense_list[index]
+    while True:
+        print("=" * 35)
+        print("EDIT EXPENSE")
+        print("=" * 35)
+        print("1. Edit Expense Name")
+        print("2. Edit Category")
+        print("3. Edit Amount")
+        print("4. Back")
+        try:
+            choice = int(input("Enter your choice (1-4): "))
+        except ValueError:
+            print("Invalid input. Please enter a valid number.")
+            continue
+        if choice == 1:
+                edit_expense_name(expense)
+                save_expenses(expense_list)
+                print("Expense name updated successfully.")
+        elif choice == 2:
+            edit_expense_name(expense)
+            save_expenses(expense_list)
+            print("Category updated successfully.")
+        elif choice == 3:
+            edit_amount(expense)
+            save_expenses(expense_list)
+            print("Amount updated successfully.")
+        elif choice == 4:
+            break
+        else:
+            print("Invalid choice. Please choose between 1 and 4.")
+
+def display_expenses(expense_list):
     for expense in expense_list:
             print(expense["expense"])
             print(expense["amount"])
@@ -185,8 +155,8 @@ def search_expense(expense_list):
     if not matching_expenses:
         print("No matching expense found.")
         return
-    
-    view_expense(matching_expenses)
+    display_expenses(matching_expenses)
+
 def category_summary(expense_list):
     if not expense_list:
         print("No expenses available.")
@@ -196,7 +166,7 @@ def category_summary(expense_list):
     
     category_summary = {}
     for expense in expense_list:
-        category = expense["expense"]
+        category = expense["category"]
         amount = expense["amount"]
         
         if category in category_summary:
@@ -313,38 +283,30 @@ def sort_expenses(expense_list):
         except ValueError:
                     print("Invalid input. Please enter a valid number.")
                     continue
-                
+        key = None
+        reverse = False
         if choice == 1:
-                    sorted_expenses =sorted (
-                        expense_list,
-                        key = lambda expense:expense["amount"]
-                    )
+                key = lambda expense: expense["amount"]
         elif choice == 2:
-                sorted_expenses =sorted (
-                    expense_list,
-                    key = lambda expense:expense["amount"],
-                    reverse = True
-                        )
+                key =  lambda expense: expense["amount"]
+                reverse = True
         elif choice == 3:
-                sorted_expenses = sorted(
-                    expense_list,
-                    key=lambda expense:expense["expense"]
-                    )
+                key = lambda expense: expense["expense"]
         elif choice == 4:
-                sorted_expenses = sorted(
-                    expense_list,
-                    key=lambda expense:expense["expense"],
-                    reverse = True
-                        )
+                key = lambda expense: expense["expense"]
+                reverse = True
         elif choice == 5:
-                sorted_expenses = sorted(
-                    expense_list,
-                    key=lambda expense:expense["category"]
-                                    )
+                key = lambda expense: expense["category"]
+        elif choice == 6:
+                break
         else:
                 print("Invalid Choice")
                 continue
-            
+        sorted_expenses = sorted(
+                                expense_list,
+                                key=key,
+                                reverse=reverse
+                            )
         view_expense(sorted_expenses)
         break
     
@@ -373,7 +335,6 @@ def filter_expenses(expense_list):
 
             categories = set()
             for expense in expense_list:
-                print(expense)
                 categories.add(expense["category"])
             sorted_categories = sorted(categories)
 
@@ -393,12 +354,10 @@ def filter_expenses(expense_list):
                 continue
 
             selected_category = sorted_categories[category_choice - 1]
-
-            filtered_expenses = []
-
-            for expense in expense_list:
-                if expense["category"] == selected_category:
-                    filtered_expenses.append(expense)
+            filtered_expenses = filter_expenses_by_condition(
+                expense_list,
+                lambda expense: expense["category"] == selected_category
+                )
 
             view_expense(filtered_expenses)
             break
@@ -409,10 +368,10 @@ def filter_expenses(expense_list):
             except ValueError:
                 print("Invalid input. Please enter a valid number.")
                 continue
-            filtered_expenses = []
-            for expense in expense_list:
-                if expense["amount"] > minimum_amount:
-                    filtered_expenses.append(expense)
+            filtered_expenses = filter_expenses_by_condition(
+                expense_list,
+                lambda expense: expense["amount"] > minimum_amount
+                )
             if not filtered_expenses:
                     print("No Expense Found !")
                     continue
@@ -425,10 +384,10 @@ def filter_expenses(expense_list):
             except ValueError:
                 print("Invalid input . Please enter a valid number.")
                 continue
-            filtered_expenses = []
-            for expense in expense_list:
-                if expense["amount"] < maximum_amount:
-                    filtered_expenses.append(expense)
+            filtered_expenses = filter_expenses_by_condition(
+                expense_list,
+                lambda expense: expense["amount"] < maximum_amount
+                )
             if not filtered_expenses:
                 print("No expense found!")
                 continue
@@ -445,10 +404,10 @@ def filter_expenses(expense_list):
             if minimum_amount > maximum_amount:
                 print("Invalid input. Please try again.")
                 continue
-            filtered_expenses = []
-            for expense in expense_list:
-                if minimum_amount <= expense["amount"] <= maximum_amount:
-                    filtered_expenses.append(expense)
+            filtered_expenses = filter_expenses_by_condition(
+                expense_list,
+                lambda expense: minimum_amount <= expense["amount"] <= maximum_amount
+                )
             if not filtered_expenses:
                 print("No expense found!")
                 continue
@@ -460,3 +419,10 @@ def filter_expenses(expense_list):
 
         else:
             print("Invalid choice. Please choose between 1 and 5.")
+            
+def filter_expenses_by_condition(expense_list, condition):
+    filtered_expenses = []
+    for expense in expense_list:
+        if condition(expense):
+            filtered_expenses.append(expense)
+    return filtered_expenses
